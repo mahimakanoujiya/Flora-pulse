@@ -1,1 +1,1304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Flora Pulse 🌿</title>
 
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap');
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --green: #2f6b4f;
+  --dark-green: #1f4937;
+  --light-green: #e9f3ec;
+  --cream: #f7f5ee;
+  --white: #ffffff;
+  --text: #203229;
+  --muted: #738078;
+  --border: #e4e9e3;
+  --shadow: 0 12px 35px rgba(35, 65, 49, .08);
+}
+
+body {
+  font-family: "DM Sans", sans-serif;
+  background: var(--cream);
+  color: var(--text);
+}
+
+button,
+input,
+select {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+.app {
+  display: flex;
+  min-height: 100vh;
+}
+
+/* SIDEBAR */
+
+.sidebar {
+  width: 245px;
+  background: #edf4ee;
+  padding: 28px 18px;
+  position: fixed;
+  height: 100vh;
+  left: 0;
+  top: 0;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  padding: 0 10px;
+  margin-bottom: 48px;
+}
+
+.logo-icon {
+  width: 42px;
+  height: 42px;
+  border-radius: 13px;
+  display: grid;
+  place-items: center;
+  background: var(--green);
+  color: white;
+  font-size: 22px;
+}
+
+.logo strong {
+  display: block;
+  font-size: 18px;
+}
+
+.logo small {
+  color: var(--muted);
+  font-size: 11px;
+}
+
+.nav {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.nav button {
+  border: 0;
+  background: transparent;
+  padding: 13px 15px;
+  border-radius: 12px;
+  text-align: left;
+  color: #68756d;
+  font-weight: 600;
+}
+
+.nav button:hover,
+.nav button.active {
+  background: white;
+  color: var(--green);
+  box-shadow: 0 5px 15px rgba(0,0,0,.04);
+}
+
+.tip {
+  position: absolute;
+  bottom: 25px;
+  left: 18px;
+  right: 18px;
+  background: white;
+  padding: 17px;
+  border-radius: 17px;
+  box-shadow: var(--shadow);
+}
+
+.tip span {
+  font-size: 24px;
+}
+
+.tip b {
+  display: block;
+  margin: 7px 0 4px;
+}
+
+.tip p {
+  font-size: 12px;
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+/* MAIN */
+
+main {
+  margin-left: 245px;
+  width: calc(100% - 245px);
+  padding: 34px 5%;
+  max-width: 1500px;
+}
+
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 28px;
+}
+
+.eyebrow {
+  color: var(--green);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.8px;
+  margin-bottom: 6px;
+}
+
+h1 {
+  font-family: "Playfair Display", serif;
+  font-size: clamp(25px, 3vw, 36px);
+}
+
+h2 {
+  font-family: "Playfair Display", serif;
+}
+
+.primary {
+  background: var(--green);
+  color: white;
+  border: 0;
+  padding: 12px 19px;
+  border-radius: 11px;
+  font-weight: 700;
+  transition: .2s;
+}
+
+.primary:hover {
+  background: var(--dark-green);
+  transform: translateY(-1px);
+}
+
+/* HERO */
+
+.hero {
+  background: linear-gradient(120deg, #234e3a, #42735a);
+  color: white;
+  border-radius: 25px;
+  padding: 38px;
+  min-height: 275px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  overflow: hidden;
+  box-shadow: 0 18px 40px rgba(31,73,55,.18);
+}
+
+.hero .eyebrow {
+  color: #b8d9c2;
+}
+
+.hero h2 {
+  font-size: clamp(31px, 4vw, 49px);
+  line-height: 1.05;
+  margin-bottom: 15px;
+}
+
+.hero p:not(.eyebrow) {
+  color: #d5e5d9;
+  max-width: 520px;
+  line-height: 1.6;
+}
+
+.hero button {
+  margin-top: 23px;
+  background: white;
+  color: var(--dark-green);
+  border: 0;
+  padding: 11px 18px;
+  border-radius: 10px;
+  font-weight: 700;
+}
+
+.big-plant {
+  font-size: 150px;
+  transform: rotate(-4deg);
+  margin-right: 4%;
+  filter: drop-shadow(0 15px 15px rgba(0,0,0,.15));
+}
+
+/* STATS */
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(4,1fr);
+  gap: 16px;
+  margin: 20px 0;
+}
+
+.stat {
+  background: white;
+  padding: 19px;
+  border-radius: 17px;
+  box-shadow: var(--shadow);
+  display: flex;
+  gap: 14px;
+  align-items: center;
+}
+
+.stat-icon {
+  width: 45px;
+  height: 45px;
+  display: grid;
+  place-items: center;
+  background: var(--light-green);
+  border-radius: 13px;
+  font-size: 20px;
+}
+
+.stat small {
+  display: block;
+  color: var(--muted);
+  font-size: 11px;
+}
+
+.stat strong {
+  display: block;
+  font-size: 24px;
+  margin-top: 3px;
+}
+
+/* PANELS */
+
+.grid {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  gap: 20px;
+}
+
+.panel {
+  background: white;
+  padding: 23px;
+  border-radius: 20px;
+  box-shadow: var(--shadow);
+}
+
+.panel-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 17px;
+}
+
+.panel h3 {
+  font-size: 19px;
+}
+
+.pill {
+  background: var(--light-green);
+  color: var(--green);
+  padding: 6px 10px;
+  border-radius: 30px;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.task {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.task:last-child {
+  border-bottom: 0;
+}
+
+.task-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.task-icon {
+  width: 40px;
+  height: 40px;
+  background: #f0f6f1;
+  border-radius: 11px;
+  display: grid;
+  place-items: center;
+}
+
+.task small {
+  color: var(--muted);
+}
+
+.done {
+  border: 1px solid #c8ddcd;
+  background: white;
+  color: var(--green);
+  padding: 7px 11px;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.done.completed {
+  background: var(--green);
+  color: white;
+}
+
+.quote {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 220px;
+}
+
+.quote .mark {
+  font-family: Georgia;
+  font-size: 65px;
+  color: #c8dccd;
+  line-height: .7;
+}
+
+.quote p {
+  font-family: "Playfair Display", serif;
+  font-size: 25px;
+  line-height: 1.35;
+  margin: 18px 0;
+}
+
+.quote small {
+  color: var(--muted);
+}
+
+/* SECTIONS */
+
+.section {
+  display: none;
+}
+
+.section.active {
+  display: block;
+}
+
+.section-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 23px;
+}
+
+.section-title h2 {
+  font-size: 34px;
+}
+
+/* PLANTS */
+
+.plants {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 19px;
+}
+
+.plant-card {
+  background: white;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: var(--shadow);
+}
+
+.plant-image {
+  height: 180px;
+  background: linear-gradient(145deg,#e9f3e9,#cddfce);
+  display: grid;
+  place-items: center;
+  font-size: 92px;
+}
+
+.plant-info {
+  padding: 18px;
+}
+
+.plant-info h3 {
+  margin-bottom: 4px;
+}
+
+.plant-info p {
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.plant-details {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 15px;
+  padding-top: 13px;
+  border-top: 1px solid var(--border);
+  font-size: 12px;
+}
+
+/* DIARY */
+
+.diary-list {
+  display: flex;
+  flex-direction: column;
+  gap: 13px;
+}
+
+.diary {
+  background: white;
+  padding: 19px;
+  border-radius: 16px;
+  box-shadow: var(--shadow);
+}
+
+.diary strong {
+  color: var(--green);
+}
+
+.diary p {
+  margin-top: 6px;
+  line-height: 1.5;
+}
+
+.diary small {
+  color: var(--muted);
+}
+
+/* MODAL */
+
+.modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(24,42,31,.52);
+  display: grid;
+  place-items: center;
+  padding: 20px;
+  z-index: 20;
+}
+
+.modal.hidden {
+  display: none;
+}
+
+.modal-box {
+  width: min(520px,100%);
+  background: white;
+  border-radius: 23px;
+  padding: 27px;
+  position: relative;
+  box-shadow: 0 25px 70px rgba(0,0,0,.2);
+}
+
+.close {
+  position: absolute;
+  right: 17px;
+  top: 13px;
+  border: 0;
+  background: #f1f3f0;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  font-size: 22px;
+}
+
+.modal-box h2 {
+  font-size: 30px;
+  margin-bottom: 22px;
+}
+
+form label {
+  display: block;
+  font-size: 12px;
+  font-weight: 700;
+  margin-bottom: 14px;
+}
+
+input,
+select {
+  width: 100%;
+  margin-top: 7px;
+  padding: 12px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  outline: none;
+  background: white;
+}
+
+input:focus,
+select:focus {
+  border-color: var(--green);
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.full {
+  width: 100%;
+  margin-top: 8px;
+}
+
+.empty {
+  background: white;
+  padding: 50px 20px;
+  border-radius: 20px;
+  text-align: center;
+  color: var(--muted);
+  box-shadow: var(--shadow);
+}
+
+.empty div {
+  font-size: 50px;
+  margin-bottom: 12px;
+}
+
+/* MOBILE */
+
+@media(max-width:900px) {
+  .sidebar {
+    width: 75px;
+    padding: 20px 10px;
+  }
+
+  .logo div:last-child,
+  .nav span,
+  .tip {
+    display: none;
+  }
+
+  .logo {
+    justify-content: center;
+    padding: 0;
+  }
+
+  .nav button {
+    text-align: center;
+    font-size: 21px;
+  }
+
+  main {
+    margin-left: 75px;
+    width: calc(100% - 75px);
+    padding: 25px 4%;
+  }
+
+  .stats {
+    grid-template-columns: repeat(2,1fr);
+  }
+
+  .grid {
+    grid-template-columns: 1fr;
+  }
+
+  .plants {
+    grid-template-columns: repeat(2,1fr);
+  }
+
+  .big-plant {
+    font-size: 90px;
+  }
+}
+
+@media(max-width:600px) {
+  .topbar h1 {
+    font-size: 24px;
+  }
+
+  .topbar .primary {
+    padding: 10px 12px;
+    font-size: 12px;
+  }
+
+  .hero {
+    padding: 25px;
+    min-height: 300px;
+  }
+
+  .hero h2 {
+    font-size: 34px;
+  }
+
+  .big-plant {
+    position: absolute;
+    right: 8px;
+    opacity: .3;
+  }
+
+  .plants {
+    grid-template-columns: 1fr;
+  }
+
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="app">
+
+<aside class="sidebar">
+
+  <div class="logo">
+    <div class="logo-icon">🌿</div>
+    <div>
+      <strong>Flora Pulse</strong>
+      <small>Plant care, simplified.</small>
+    </div>
+  </div>
+
+  <div class="nav">
+    <button class="active" onclick="showSection('dashboard',this)">⌂ <span>Dashboard</span></button>
+    <button onclick="showSection('plants',this)">🌱 <span>My Plants</span></button>
+    <button onclick="showSection('diary',this)">📖 <span>Plant Diary</span></button>
+  </div>
+
+  <div class="tip">
+    <span>🌱</span>
+    <b>Little care, big growth.</b>
+    <p>Keep your plants happy one day at a time.</p>
+  </div>
+
+</aside>
+
+<main>
+
+<header class="topbar">
+  <div>
+    <div class="eyebrow">YOUR GARDEN</div>
+    <h1>Good morning, plant parent 🌿</h1>
+  </div>
+
+  <button class="primary" onclick="openModal()">+ Add plant</button>
+</header>
+
+
+<!-- DASHBOARD -->
+
+<section id="dashboard" class="section active">
+
+  <div class="hero">
+
+    <div>
+      <div class="eyebrow">FLORA PULSE</div>
+
+      <h2>
+        Stay in sync<br>
+        with your plants.
+      </h2>
+
+      <p>
+        Track watering, sunlight and little moments of growth —
+        all in one peaceful place.
+      </p>
+
+      <button onclick="showSection('plants')">
+        View my garden →
+      </button>
+    </div>
+
+    <div class="big-plant">🪴</div>
+
+  </div>
+
+
+  <div class="stats">
+
+    <div class="stat">
+      <div class="stat-icon">🌿</div>
+      <div>
+        <small>Total plants</small>
+        <strong id="totalPlants">0</strong>
+      </div>
+    </div>
+
+    <div class="stat">
+      <div class="stat-icon">💧</div>
+      <div>
+        <small>Need water</small>
+        <strong id="needWater">0</strong>
+      </div>
+    </div>
+
+    <div class="stat">
+      <div class="stat-icon">💚</div>
+      <div>
+        <small>Healthy plants</small>
+        <strong id="healthyPlants">0</strong>
+      </div>
+    </div>
+
+    <div class="stat">
+      <div class="stat-icon">🔥</div>
+      <div>
+        <small>Care streak</small>
+        <strong>1 day</strong>
+      </div>
+    </div>
+
+  </div>
+
+
+  <div class="grid">
+
+    <div class="panel">
+
+      <div class="panel-head">
+        <div>
+          <div class="eyebrow">TODAY</div>
+          <h3>Care checklist</h3>
+        </div>
+
+        <span class="pill" id="taskCount">0 tasks</span>
+      </div>
+
+      <div id="careList"></div>
+
+    </div>
+
+
+    <div class="panel quote">
+
+      <div class="mark">“</div>
+
+      <p>
+        Plants don't rush their growth.
+        Neither should you.
+      </p>
+
+      <small>— Your Flora Pulse reminder</small>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- PLANTS -->
+
+<section id="plants" class="section">
+
+  <div class="section-title">
+
+    <div>
+      <div class="eyebrow">YOUR COLLECTION</div>
+      <h2>My Plants</h2>
+    </div>
+
+    <button class="primary" onclick="openModal()">
+      + Add plant
+    </button>
+
+  </div>
+
+  <div class="plants" id="plantGrid"></div>
+
+</section>
+
+
+<!-- DIARY -->
+
+<section id="diary" class="section">
+
+  <div class="section-title">
+
+    <div>
+      <div class="eyebrow">MEMORIES & NOTES</div>
+      <h2>Plant Diary</h2>
+    </div>
+
+  </div>
+
+  <div class="diary-list" id="diaryList"></div>
+
+</section>
+
+</main>
+
+</div>
+
+
+<!-- ADD PLANT MODAL -->
+
+<div class="modal hidden" id="modal">
+
+  <div class="modal-box">
+
+    <button class="close" onclick="closeModal()">×</button>
+
+    <div class="eyebrow">NEW PLANT</div>
+
+    <h2>Add to your garden</h2>
+
+    <form onsubmit="addPlant(event)">
+
+      <label>
+        Plant name
+        <input id="plantName" placeholder="e.g. Monstera" required>
+      </label>
+
+      <label>
+        Plant type
+        <input id="plantType" placeholder="e.g. Indoor tropical">
+      </label>
+
+      <div class="form-row">
+
+        <label>
+          Water every (days)
+          <input id="waterEvery" type="number" min="1" value="3" required>
+        </label>
+
+        <label>
+          Sunlight
+          <select id="sunlight">
+            <option>Bright indirect</option>
+            <option>Low light</option>
+            <option>Direct sunlight</option>
+            <option>Partial shade</option>
+          </select>
+        </label>
+
+      </div>
+
+      <button class="primary full" type="submit">
+        Add plant 🌱
+      </button>
+
+    </form>
+
+  </div>
+
+</div>
+
+
+<script>
+
+let plants = JSON.parse(localStorage.getItem("floraPulsePlants")) || [];
+
+
+/* NAVIGATION */
+
+function showSection(id, button) {
+
+  document.querySelectorAll(".section").forEach(section => {
+    section.classList.remove("active");
+  });
+
+  document.getElementById(id).classList.add("active");
+
+  document.querySelectorAll(".nav button").forEach(btn => {
+    btn.classList.remove("active");
+  });
+
+  if(button) {
+    button.classList.add("active");
+  }
+
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth"
+  });
+
+  render();
+}
+
+
+/* MODAL */
+
+function openModal() {
+  document.getElementById("modal").classList.remove("hidden");
+}
+
+function closeModal() {
+  document.getElementById("modal").classList.add("hidden");
+}
+
+
+/* ADD PLANT */
+
+function addPlant(event) {
+
+  event.preventDefault();
+
+  const name = document.getElementById("plantName").value.trim();
+
+  const type =
+    document.getElementById("plantType").value.trim()
+    || "Green houseplant";
+
+  const waterEvery =
+    Number(document.getElementById("waterEvery").value);
+
+  const sunlight =
+    document.getElementById("sunlight").value;
+
+
+  const plant = {
+
+    id: Date.now(),
+
+    name: name,
+
+    type: type,
+
+    waterEvery: waterEvery,
+
+    sunlight: sunlight,
+
+    lastWatered: new Date().toISOString(),
+
+    emoji: choosePlantEmoji(type),
+
+    note: "Added to your Flora Pulse garden."
+
+  };
+
+
+  plants.push(plant);
+
+  save();
+
+  event.target.reset();
+
+  document.getElementById("waterEvery").value = 3;
+
+  closeModal();
+
+  showSection("plants");
+
+}
+
+
+/* PLANT EMOJI */
+
+function choosePlantEmoji(type) {
+
+  const text = type.toLowerCase();
+
+  if(text.includes("flower")) return "🌷";
+
+  if(text.includes("cactus")) return "🌵";
+
+  if(text.includes("succulent")) return "🪴";
+
+  if(text.includes("herb")) return "🌿";
+
+  if(text.includes("tree")) return "🌳";
+
+  return "🌱";
+}
+
+
+/* WATER CALCULATION */
+
+function daysSince(date) {
+
+  const now = new Date();
+
+  const then = new Date(date);
+
+  return Math.floor(
+    (now - then) / (1000 * 60 * 60 * 24)
+  );
+
+}
+
+
+function needsWater(plant) {
+
+  return daysSince(plant.lastWatered) >= plant.waterEvery;
+
+}
+
+
+function waterPlant(id) {
+
+  const plant = plants.find(p => p.id === id);
+
+  if(!plant) return;
+
+  plant.lastWatered = new Date().toISOString();
+
+  plant.note = "Watered today 💧";
+
+  save();
+
+  render();
+
+}
+
+
+/* DELETE */
+
+function deletePlant(id) {
+
+  if(!confirm("Remove this plant from your garden?")) return;
+
+  plants = plants.filter(p => p.id !== id);
+
+  save();
+
+  render();
+
+}
+
+
+/* SAVE */
+
+function save() {
+
+  localStorage.setItem(
+    "floraPulsePlants",
+    JSON.stringify(plants)
+  );
+
+}
+
+
+/* DASHBOARD */
+
+function renderDashboard() {
+
+  document.getElementById("totalPlants").textContent =
+    plants.length;
+
+  const thirsty =
+    plants.filter(needsWater).length;
+
+  document.getElementById("needWater").textContent =
+    thirsty;
+
+  document.getElementById("healthyPlants").textContent =
+    plants.length - thirsty;
+
+
+  const list =
+    document.getElementById("careList");
+
+  const tasks =
+    plants.filter(needsWater);
+
+  document.getElementById("taskCount").textContent =
+    tasks.length + (tasks.length === 1 ? " task" : " tasks");
+
+
+  if(tasks.length === 0) {
+
+    list.innerHTML = `
+      <div class="empty">
+        <div>🌿</div>
+        <b>All caught up!</b>
+        <p>Your plants don't need water right now.</p>
+      </div>
+    `;
+
+    return;
+  }
+
+
+  list.innerHTML = tasks.map(plant => `
+
+    <div class="task">
+
+      <div class="task-left">
+
+        <div class="task-icon">
+          ${plant.emoji}
+        </div>
+
+        <div>
+          <b>${escapeHTML(plant.name)}</b>
+          <small>Needs watering today</small>
+        </div>
+
+      </div>
+
+      <button
+        class="done"
+        onclick="waterPlant(${plant.id})">
+        Watered
+      </button>
+
+    </div>
+
+  `).join("");
+
+}
+
+
+/* PLANT CARDS */
+
+function renderPlants() {
+
+  const grid =
+    document.getElementById("plantGrid");
+
+
+  if(plants.length === 0) {
+
+    grid.innerHTML = `
+      <div class="empty" style="grid-column:1/-1">
+        <div>🪴</div>
+        <h3>Your garden is waiting.</h3>
+        <p>Add your first plant to start tracking its care.</p>
+        <br>
+        <button class="primary" onclick="openModal()">
+          + Add my first plant
+        </button>
+      </div>
+    `;
+
+    return;
+  }
+
+
+  grid.innerHTML = plants.map(plant => {
+
+    const thirsty = needsWater(plant);
+
+    return `
+
+      <div class="plant-card">
+
+        <div class="plant-image">
+          ${plant.emoji}
+        </div>
+
+        <div class="plant-info">
+
+          <h3>${escapeHTML(plant.name)}</h3>
+
+          <p>${escapeHTML(plant.type)}</p>
+
+          <div class="plant-details">
+
+            <span>
+              ${thirsty ? "💧 Needs water" : "💚 Healthy"}
+            </span>
+
+            <span>
+              ☀️ ${escapeHTML(plant.sunlight)}
+            </span>
+
+          </div>
+
+          <div class="plant-details">
+
+            <button
+              class="done ${thirsty ? "" : "completed"}"
+              onclick="waterPlant(${plant.id})">
+              💧 Water
+            </button>
+
+            <button
+              class="done"
+              onclick="deletePlant(${plant.id})">
+              Remove
+            </button>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    `;
+
+  }).join("");
+
+}
+
+
+/* DIARY */
+
+function renderDiary() {
+
+  const diary =
+    document.getElementById("diaryList");
+
+
+  if(plants.length === 0) {
+
+    diary.innerHTML = `
+      <div class="empty">
+        <div>📖</div>
+        <b>Your plant diary is empty.</b>
+        <p>Add a plant and start recording its little moments.</p>
+      </div>
+    `;
+
+    return;
+  }
+
+
+  diary.innerHTML = plants.map(plant => `
+
+    <div class="diary">
+
+      <small>
+        ${new Date(plant.lastWatered).toLocaleDateString()}
+      </small>
+
+      <p>
+        <strong>${plant.emoji} ${escapeHTML(plant.name)}</strong>
+        — ${escapeHTML(plant.note)}
+      </p>
+
+    </div>
+
+  `).join("");
+
+}
+
+
+/* SECURITY */
+
+function escapeHTML(text) {
+
+  return String(text)
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#039;");
+
+}
+
+
+/* MAIN RENDER */
+
+function render() {
+
+  renderDashboard();
+
+  renderPlants();
+
+  renderDiary();
+
+}
+
+
+/* START */
+
+render();
+
+</script>
+
+</body>
+</html>

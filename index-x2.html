@@ -1663,6 +1663,30 @@ footer {
             </li>
 
           </ul>
+              <div style="display:flex; gap:10px; flex-wrap:wrap;">
+
+  <label for="cameraInput" class="primary-btn">
+    📸 Take Photo
+  </label>
+
+  <input
+    type="file"
+    id="cameraInput"
+    accept="image/*"
+    capture="environment"
+    hidden>
+
+  <label for="plantInput" class="primary-btn">
+    🖼️ Choose from Gallery
+  </label>
+
+  <input
+    type="file"
+    id="plantInput"
+    accept="image/*"
+    hidden>
+
+              </div>
 
         </div>
 
@@ -1686,16 +1710,7 @@ footer {
               gives better visual clues.
             </p>
 
-            <label
-              for="plantInput"
-              class="primary-btn">
-              📷 Choose Photo
-            </label>
-
-            <input
-              type="file"
-              id="plantInput"
-              accept="image/*"
+            
           </div>
 
 

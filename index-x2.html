@@ -1,1 +1,2914 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
 
+<meta name="theme-color" content="#dff3df">
+
+<title>Flora Pulse | Smart Plant Care</title>
+
+<style>
+
+/* =========================================================
+   FLORA PULSE V2
+   Soft green / cream responsive plant-care dashboard
+   ========================================================= */
+
+:root {
+  --green-900: #24513a;
+  --green-800: #2f6849;
+  --green-700: #3f8058;
+  --green-600: #5a9b6c;
+  --green-500: #79b985;
+
+  --green-100: #e6f5e8;
+  --green-50: #f3faf3;
+
+  --cream: #fffdf7;
+  --cream-2: #f8f7ee;
+
+  --text: #284034;
+  --muted: #718177;
+
+  --white: #ffffff;
+
+  --warning: #d89b38;
+  --danger: #c96969;
+  --blue: #6195a7;
+
+  --shadow:
+    0 12px 35px rgba(53, 91, 65, 0.10);
+
+  --radius: 22px;
+}
+
+/* ---------------- BASIC RESET ---------------- */
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family:
+    Inter,
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+
+  color: var(--text);
+  background:
+    linear-gradient(
+      135deg,
+      #f7fbf5 0%,
+      #fffdf7 48%,
+      #eef8ee 100%
+    );
+
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+button,
+input,
+textarea {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+img {
+  max-width: 100%;
+}
+
+/* ---------------- DECORATIVE BACKGROUND ---------------- */
+
+.background-leaf {
+  position: fixed;
+  pointer-events: none;
+  z-index: -1;
+  opacity: .35;
+  font-size: 45px;
+  animation: floatingLeaf 8s ease-in-out infinite;
+}
+
+.leaf-1 {
+  top: 14%;
+  left: 3%;
+}
+
+.leaf-2 {
+  top: 48%;
+  right: 3%;
+  animation-delay: 2s;
+}
+
+.leaf-3 {
+  bottom: 10%;
+  left: 10%;
+  animation-delay: 4s;
+}
+
+@keyframes floatingLeaf {
+
+  0%,100% {
+    transform:
+      translateY(0)
+      rotate(-8deg);
+  }
+
+  50% {
+    transform:
+      translateY(-18px)
+      rotate(8deg);
+  }
+}
+
+/* tiny moving particles */
+
+.particle {
+  position: fixed;
+  width: 5px;
+  height: 5px;
+  background: #a7d5ae;
+  border-radius: 50%;
+  opacity: .35;
+  pointer-events: none;
+  z-index: -1;
+  animation: particleMove 10s linear infinite;
+}
+
+@keyframes particleMove {
+
+  from {
+    transform:
+      translateY(100vh)
+      translateX(0);
+  }
+
+  to {
+    transform:
+      translateY(-20vh)
+      translateX(50px);
+  }
+}
+
+/* ---------------- NAVBAR ---------------- */
+
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+
+  background:
+    rgba(255,255,255,.86);
+
+  backdrop-filter: blur(15px);
+
+  border-bottom:
+    1px solid rgba(91,135,99,.12);
+}
+
+.nav-inner {
+  width: min(1180px, 92%);
+  margin: auto;
+
+  min-height: 72px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 20px;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  text-decoration: none;
+  color: var(--green-900);
+
+  font-size: 21px;
+  font-weight: 800;
+}
+
+.brand-icon {
+  width: 42px;
+  height: 42px;
+
+  display: grid;
+  place-items: center;
+
+  border-radius: 14px;
+
+  background:
+    linear-gradient(
+      145deg,
+      #dff4df,
+      #c8eacb
+    );
+
+  font-size: 23px;
+}
+
+.nav-links {
+  display: flex;
+  gap: 7px;
+}
+
+.nav-links button {
+  border: 0;
+  background: transparent;
+
+  color: var(--muted);
+
+  padding: 10px 13px;
+  border-radius: 12px;
+
+  transition: .2s;
+}
+
+.nav-links button:hover,
+.nav-links button.active {
+  color: var(--green-800);
+  background: var(--green-100);
+}
+
+.mobile-menu {
+  display: none;
+
+  border: 0;
+  background: var(--green-100);
+
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+
+  font-size: 20px;
+}
+
+/* ---------------- MAIN ---------------- */
+
+.container {
+  width: min(1180px, 92%);
+  margin: auto;
+}
+
+section {
+  padding: 55px 0;
+}
+
+.section-title {
+  margin-bottom: 22px;
+}
+
+.section-title h2 {
+  font-size: clamp(25px, 4vw, 36px);
+  color: var(--green-900);
+}
+
+.section-title p {
+  margin-top: 7px;
+  color: var(--muted);
+}
+
+/* ---------------- HERO ---------------- */
+
+.hero {
+  min-height: 500px;
+
+  display: grid;
+  grid-template-columns:
+    1.05fr .95fr;
+
+  align-items: center;
+
+  gap: 55px;
+}
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+
+  background: var(--green-100);
+  color: var(--green-800);
+
+  padding: 8px 13px;
+  border-radius: 999px;
+
+  font-size: 13px;
+  font-weight: 700;
+
+  margin-bottom: 18px;
+}
+
+.hero h1 {
+  font-size: clamp(38px, 6vw, 68px);
+  line-height: 1.02;
+
+  color: var(--green-900);
+}
+
+.hero h1 span {
+  color: var(--green-600);
+}
+
+.hero-description {
+  color: var(--muted);
+
+  line-height: 1.7;
+
+  max-width: 600px;
+
+  margin:
+    18px 0 25px;
+}
+
+.hero-actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.primary-btn,
+.secondary-btn {
+  border: 0;
+
+  border-radius: 14px;
+
+  padding:
+    13px 19px;
+
+  font-weight: 750;
+
+  transition:
+    transform .2s,
+    box-shadow .2s;
+}
+
+.primary-btn {
+  color: white;
+
+  background:
+    linear-gradient(
+      135deg,
+      var(--green-700),
+      var(--green-500)
+    );
+
+  box-shadow:
+    0 9px 22px
+    rgba(70, 133, 85, .22);
+}
+
+.secondary-btn {
+  color: var(--green-800);
+
+  background: white;
+
+  border:
+    1px solid
+    rgba(67, 120, 78, .15);
+}
+
+.primary-btn:hover,
+.secondary-btn:hover {
+  transform: translateY(-2px);
+}
+
+/* ---------------- HERO PLANT CARD ---------------- */
+
+.hero-visual {
+  min-height: 390px;
+
+  border-radius: 35px;
+
+  background:
+    radial-gradient(
+      circle at 50% 35%,
+      #e5f6e5,
+      transparent 35%
+    ),
+    linear-gradient(
+      145deg,
+      #f8fff6,
+      #e7f4e6
+    );
+
+  box-shadow: var(--shadow);
+
+  position: relative;
+
+  display: grid;
+  place-items: center;
+
+  overflow: hidden;
+}
+
+.hero-plant {
+  font-size: clamp(120px, 20vw, 210px);
+
+  filter:
+    drop-shadow(
+      0 25px 18px
+      rgba(46,92,58,.15)
+    );
+
+  animation:
+    plantFloat 5s ease-in-out infinite;
+}
+
+@keyframes plantFloat {
+
+  0%,100% {
+    transform:
+      translateY(5px)
+      rotate(-2deg);
+  }
+
+  50% {
+    transform:
+      translateY(-13px)
+      rotate(2deg);
+  }
+}
+
+.glass-chip {
+  position: absolute;
+
+  padding: 10px 14px;
+
+  background:
+    rgba(255,255,255,.84);
+
+  backdrop-filter: blur(10px);
+
+  border-radius: 15px;
+
+  box-shadow:
+    0 9px 25px
+    rgba(40,70,45,.09);
+
+  font-size: 13px;
+}
+
+.chip-one {
+  top: 18%;
+  left: 7%;
+}
+
+.chip-two {
+  bottom: 20%;
+  right: 7%;
+}
+
+/* ---------------- DASHBOARD ---------------- */
+
+.dashboard-grid {
+  display: grid;
+
+  grid-template-columns:
+    repeat(4, 1fr);
+
+  gap: 16px;
+}
+
+.stat-card {
+  background: rgba(255,255,255,.82);
+
+  border:
+    1px solid
+    rgba(68,111,75,.10);
+
+  border-radius: var(--radius);
+
+  padding: 20px;
+
+  box-shadow: var(--shadow);
+}
+
+.stat-icon {
+  font-size: 27px;
+  margin-bottom: 12px;
+}
+
+.stat-card h3 {
+  font-size: 25px;
+}
+
+.stat-card p {
+  color: var(--muted);
+  font-size: 13px;
+  margin-top: 4px;
+}
+
+/* ---------------- AI DOCTOR ---------------- */
+
+.doctor-card {
+  background:
+    linear-gradient(
+      135deg,
+      #eff9ed,
+      #ffffff
+    );
+
+  border:
+    1px solid
+    rgba(77,132,86,.12);
+
+  border-radius: 30px;
+
+  padding: clamp(20px, 5vw, 40px);
+
+  box-shadow: var(--shadow);
+}
+
+.doctor-layout {
+  display: grid;
+
+  grid-template-columns:
+    .9fr 1.1fr;
+
+  gap: 30px;
+
+  align-items: center;
+}
+
+.doctor-copy h3 {
+  font-size: 30px;
+  color: var(--green-900);
+}
+
+.doctor-copy p {
+  color: var(--muted);
+  line-height: 1.7;
+  margin: 12px 0 20px;
+}
+
+.feature-list {
+  list-style: none;
+
+  display: grid;
+
+  gap: 10px;
+}
+
+.feature-list li {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+
+  font-size: 14px;
+}
+
+/* Upload */
+
+.upload-box {
+  border:
+    2px dashed
+    #acd5b1;
+
+  background:
+    rgba(255,255,255,.75);
+
+  min-height: 290px;
+
+  border-radius: 25px;
+
+  display: grid;
+  place-items: center;
+
+  padding: 20px;
+
+  text-align: center;
+
+  transition: .2s;
+}
+
+.upload-box.dragover {
+  background: #eaf8e9;
+  border-color: var(--green-600);
+}
+
+.upload-icon {
+  font-size: 55px;
+  margin-bottom: 10px;
+}
+
+.upload-box h4 {
+  font-size: 21px;
+}
+
+.upload-box p {
+  color: var(--muted);
+  font-size: 13px;
+  margin: 7px 0 15px;
+}
+
+#plantInput {
+  display: none;
+}
+
+.preview {
+  display: none;
+}
+
+.preview img {
+  width: 100%;
+  max-height: 250px;
+  object-fit: contain;
+
+  border-radius: 18px;
+}
+
+/* ---------------- REPORT ---------------- */
+
+.report {
+  display: none;
+  margin-top: 28px;
+}
+
+.report.show {
+  display: block;
+  animation: fadeUp .5s ease;
+}
+
+@keyframes fadeUp {
+
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.report-header {
+  display: flex;
+
+  justify-content: space-between;
+  align-items: center;
+
+  gap: 15px;
+
+  flex-wrap: wrap;
+
+  margin-bottom: 20px;
+}
+
+.health-score {
+  background: #e6f5e6;
+  color: var(--green-800);
+
+  padding: 9px 15px;
+
+  border-radius: 999px;
+
+  font-weight: 800;
+}
+
+.report-grid {
+  display: grid;
+
+  grid-template-columns:
+    repeat(2, 1fr);
+
+  gap: 15px;
+}
+
+.report-card {
+  background: white;
+
+  border:
+    1px solid
+    rgba(63,128,88,.10);
+
+  border-radius: 19px;
+
+  padding: 19px;
+
+  box-shadow:
+    0 8px 25px
+    rgba(47,90,55,.07);
+}
+
+.report-card h4 {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+
+  margin-bottom: 10px;
+
+  color: var(--green-800);
+}
+
+.report-card p {
+  color: var(--muted);
+  line-height: 1.6;
+  font-size: 14px;
+}
+
+.status {
+  display: inline-block;
+
+  margin-top: 10px;
+
+  padding: 5px 9px;
+
+  border-radius: 999px;
+
+  font-size: 12px;
+
+  font-weight: 700;
+}
+
+.status.good {
+  background: #e4f6e5;
+  color: #377344;
+}
+
+.status.attention {
+  background: #fff1d9;
+  color: #9a6a22;
+}
+
+.status.alert {
+  background: #fde4e4;
+  color: #9a4c4c;
+}
+
+.care-plan {
+  margin-top: 15px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #eaf7e9,
+      #f7fcf4
+    );
+
+  padding: 20px;
+
+  border-radius: 20px;
+}
+
+.care-plan ul {
+  margin-top: 10px;
+  padding-left: 19px;
+
+  color: var(--muted);
+
+  line-height: 1.9;
+}
+
+/* ---------------- PLANTS ---------------- */
+
+.plants-grid {
+  display: grid;
+
+  grid-template-columns:
+    repeat(3, 1fr);
+
+  gap: 18px;
+}
+
+.plant-card {
+  background: white;
+
+  border-radius: 22px;
+
+  overflow: hidden;
+
+  box-shadow: var(--shadow);
+
+  border:
+    1px solid
+    rgba(66,109,73,.09);
+}
+
+.plant-image {
+  height: 170px;
+
+  display: grid;
+  place-items: center;
+
+  background:
+    linear-gradient(
+      145deg,
+      #e9f7e7,
+      #f9fcf4
+    );
+
+  font-size: 90px;
+}
+
+.plant-info {
+  padding: 18px;
+}
+
+.plant-info h3 {
+  margin-bottom: 4px;
+}
+
+.plant-info p {
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.progress {
+  height: 8px;
+
+  background: #edf3ed;
+
+  border-radius: 999px;
+
+  overflow: hidden;
+
+  margin-top: 14px;
+}
+
+.progress-bar {
+  height: 100%;
+  width: 78%;
+
+  background:
+    linear-gradient(
+      90deg,
+      var(--green-600),
+      var(--green-400, #83bf8d)
+    );
+
+  border-radius: inherit;
+}
+
+/* ---------------- DIARY ---------------- */
+
+.diary {
+  display: grid;
+
+  grid-template-columns:
+    1fr 1fr;
+
+  gap: 22px;
+}
+
+.diary-form,
+.diary-list {
+  background: white;
+
+  border-radius: 23px;
+
+  padding: 22px;
+
+  box-shadow: var(--shadow);
+}
+
+.field {
+  margin-bottom: 13px;
+}
+
+.field label {
+  display: block;
+
+  font-size: 13px;
+
+  font-weight: 700;
+
+  margin-bottom: 6px;
+}
+
+.field input,
+.field textarea {
+  width: 100%;
+
+  border:
+    1px solid #dce8dc;
+
+  background: #fbfdf9;
+
+  border-radius: 12px;
+
+  padding: 11px 13px;
+
+  outline: none;
+}
+
+.field textarea {
+  min-height: 110px;
+  resize: vertical;
+}
+
+.diary-entry {
+  padding: 13px 0;
+
+  border-bottom:
+    1px solid #edf2ed;
+}
+
+.diary-entry:last-child {
+  border-bottom: 0;
+}
+
+.diary-entry small {
+  color: var(--green-600);
+}
+
+.diary-entry p {
+  margin-top: 5px;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+/* ---------------- CHATBOT ---------------- */
+
+.chat-button {
+  position: fixed;
+
+  right: 20px;
+  bottom: 20px;
+
+  width: 60px;
+  height: 60px;
+
+  border: 0;
+
+  border-radius: 50%;
+
+  background:
+    linear-gradient(
+      145deg,
+      var(--green-700),
+      var(--green-500)
+    );
+
+  color: white;
+
+  font-size: 27px;
+
+  box-shadow:
+    0 12px 30px
+    rgba(49,105,61,.25);
+
+  z-index: 80;
+
+  animation:
+    chatbotPulse 3s ease-in-out infinite;
+}
+
+@keyframes chatbotPulse {
+
+  0%,100% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+.chat-window {
+  position: fixed;
+
+  right: 20px;
+  bottom: 92px;
+
+  width: min(370px, calc(100vw - 30px));
+
+  height: 500px;
+
+  background: white;
+
+  border-radius: 23px;
+
+  box-shadow:
+    0 20px 60px
+    rgba(39,72,45,.20);
+
+  border:
+    1px solid
+    rgba(65,110,72,.12);
+
+  overflow: hidden;
+
+  display: none;
+
+  z-index: 79;
+}
+
+.chat-window.open {
+  display: flex;
+  flex-direction: column;
+
+  animation: chatOpen .25s ease;
+}
+
+@keyframes chatOpen {
+
+  from {
+    opacity: 0;
+    transform: translateY(10px) scale(.98);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.chat-header {
+  padding: 15px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #e8f6e7,
+      #f6fbf2
+    );
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+}
+
+.chat-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.ai-avatar {
+  width: 38px;
+  height: 38px;
+
+  display: grid;
+  place-items: center;
+
+  border-radius: 12px;
+
+  background: white;
+}
+
+.chat-header small {
+  display: block;
+  color: #6c8473;
+  margin-top: 2px;
+}
+
+.close-chat {
+  border: 0;
+  background: transparent;
+  font-size: 20px;
+}
+
+.chat-messages {
+  flex: 1;
+
+  padding: 15px;
+
+  overflow-y: auto;
+
+  background: #fcfefb;
+}
+
+.message {
+  max-width: 82%;
+
+  padding: 10px 12px;
+
+  border-radius: 15px;
+
+  margin-bottom: 10px;
+
+  font-size: 13px;
+
+  line-height: 1.5;
+}
+
+.bot {
+  background: #eaf5e8;
+  color: #35523e;
+
+  border-bottom-left-radius: 5px;
+}
+
+.user {
+  background: var(--green-700);
+  color: white;
+
+  margin-left: auto;
+
+  border-bottom-right-radius: 5px;
+}
+
+.quick-questions {
+  padding: 8px 12px;
+
+  display: flex;
+
+  gap: 6px;
+
+  overflow-x: auto;
+
+  border-top: 1px solid #edf1ec;
+}
+
+.quick-questions button {
+  white-space: nowrap;
+
+  border:
+    1px solid #dceadd;
+
+  background: #f6faf5;
+
+  color: var(--green-800);
+
+  border-radius: 999px;
+
+  padding: 6px 9px;
+
+  font-size: 11px;
+}
+
+.chat-input {
+  display: flex;
+
+  gap: 7px;
+
+  padding: 10px;
+
+  border-top:
+    1px solid #edf1ec;
+}
+
+.chat-input input {
+  flex: 1;
+
+  border:
+    1px solid #dbe7dc;
+
+  border-radius: 12px;
+
+  padding: 10px;
+
+  outline: none;
+}
+
+.chat-input button {
+  width: 42px;
+
+  border: 0;
+
+  border-radius: 12px;
+
+  background: var(--green-700);
+
+  color: white;
+}
+
+/* ---------------- FOOTER ---------------- */
+
+footer {
+  margin-top: 35px;
+
+  background:
+    #eef7ed;
+
+  padding: 35px 0;
+
+  color: var(--muted);
+}
+
+.footer-inner {
+  width: min(1180px, 92%);
+  margin: auto;
+
+  display: flex;
+
+  justify-content: space-between;
+
+  gap: 20px;
+
+  flex-wrap: wrap;
+}
+
+.footer-brand {
+  font-weight: 800;
+  color: var(--green-900);
+}
+
+/* ---------------- TOAST ---------------- */
+
+.toast {
+  position: fixed;
+
+  left: 50%;
+  bottom: 25px;
+
+  transform:
+    translateX(-50%)
+    translateY(100px);
+
+  background:
+    #284d36;
+
+  color: white;
+
+  padding: 11px 17px;
+
+  border-radius: 999px;
+
+  font-size: 13px;
+
+  opacity: 0;
+
+  transition: .3s;
+
+  z-index: 100;
+}
+
+.toast.show {
+  transform:
+    translateX(-50%)
+    translateY(0);
+
+  opacity: 1;
+}
+
+/* =========================================================
+   RESPONSIVE DESIGN
+   ========================================================= */
+
+@media(max-width:900px) {
+
+  .hero {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+
+  .hero-visual {
+    min-height: 330px;
+  }
+
+  .dashboard-grid {
+    grid-template-columns:
+      repeat(2, 1fr);
+  }
+
+  .doctor-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .plants-grid {
+    grid-template-columns:
+      repeat(2, 1fr);
+  }
+
+  .diary {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media(max-width:650px) {
+
+  .nav-inner {
+    min-height: 62px;
+  }
+
+  .nav-links {
+    display: none;
+
+    position: absolute;
+
+    top: 62px;
+    left: 0;
+    right: 0;
+
+    background: white;
+
+    padding: 10px;
+
+    box-shadow:
+      0 12px 25px
+      rgba(30,70,38,.08);
+
+    flex-direction: column;
+  }
+
+  .nav-links.open {
+    display: flex;
+  }
+
+  .nav-links button {
+    text-align: left;
+    padding: 12px;
+  }
+
+  .mobile-menu {
+    display: block;
+  }
+
+  section {
+    padding: 38px 0;
+  }
+
+  .hero {
+    min-height: auto;
+    padding-top: 25px;
+  }
+
+  .hero h1 {
+    font-size: 42px;
+  }
+
+  .hero-visual {
+    min-height: 280px;
+    border-radius: 25px;
+  }
+
+  .hero-plant {
+    font-size: 130px;
+  }
+
+  .dashboard-grid {
+    grid-template-columns:
+      repeat(2, 1fr);
+
+    gap: 10px;
+  }
+
+  .stat-card {
+    padding: 15px;
+  }
+
+  .stat-card h3 {
+    font-size: 21px;
+  }
+
+  .report-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .plants-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .doctor-card {
+    padding: 18px;
+    border-radius: 23px;
+  }
+
+  .upload-box {
+    min-height: 240px;
+  }
+
+  .chat-window {
+    right: 15px;
+    bottom: 88px;
+    height: 470px;
+  }
+
+  .chat-button {
+    right: 15px;
+    bottom: 15px;
+  }
+}
+
+@media(max-width:380px) {
+
+  .container {
+    width: 94%;
+  }
+
+  .dashboard-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .hero-actions {
+    flex-direction: column;
+  }
+
+  .primary-btn,
+  .secondary-btn {
+    width: 100%;
+  }
+}
+
+</style>
+</head>
+
+
+<body>
+
+<!-- Floating background decoration -->
+
+<div class="background-leaf leaf-1">🌿</div>
+<div class="background-leaf leaf-2">🍃</div>
+<div class="background-leaf leaf-3">🌱</div>
+
+<div class="particle" style="left:18%; animation-delay:0s;"></div>
+<div class="particle" style="left:35%; animation-delay:2s;"></div>
+<div class="particle" style="left:62%; animation-delay:4s;"></div>
+<div class="particle" style="left:82%; animation-delay:6s;"></div>
+
+
+<!-- =====================================================
+     NAVBAR
+     ===================================================== -->
+
+<header class="navbar">
+
+  <div class="nav-inner">
+
+    <a href="#home" class="brand">
+      <span class="brand-icon">🌿</span>
+      Flora Pulse
+    </a>
+
+    <nav class="nav-links" id="navLinks">
+
+      <button onclick="scrollToSection('home')">
+        Home
+      </button>
+
+      <button onclick="scrollToSection('doctor')">
+        AI Plant Doctor
+      </button>
+
+      <button onclick="scrollToSection('plants')">
+        My Plants
+      </button>
+
+      <button onclick="scrollToSection('diary')">
+        Plant Diary
+      </button>
+
+    </nav>
+
+    <button
+      class="mobile-menu"
+      onclick="toggleMenu()"
+      aria-label="Open menu">
+      ☰
+    </button>
+
+  </div>
+
+</header>
+
+
+<main>
+
+
+<!-- =====================================================
+     HERO
+     ===================================================== -->
+
+<section id="home">
+
+  <div class="container hero">
+
+    <div>
+
+      <div class="hero-badge">
+        🌱 Smart care for happier plants
+      </div>
+
+      <h1>
+        Grow better with
+        <span>Flora Pulse.</span>
+      </h1>
+
+      <p class="hero-description">
+        Your friendly plant-care companion.
+        Track your plants, understand their needs,
+        and use AI-assisted health insights to
+        give every plant the care it deserves.
+      </p>
+
+      <div class="hero-actions">
+
+        <button
+          class="primary-btn"
+          onclick="scrollToSection('doctor')">
+          📸 Check My Plant
+        </button>
+
+        <button
+          class="secondary-btn"
+          onclick="scrollToSection('plants')">
+          🌿 View My Plants
+        </button>
+
+      </div>
+
+    </div>
+
+
+    <div class="hero-visual">
+
+      <div class="glass-chip chip-one">
+        💧 Water check
+      </div>
+
+      <div class="hero-plant">
+        🪴
+      </div>
+
+      <div class="glass-chip chip-two">
+        ❤️ Plant health
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =====================================================
+     DASHBOARD
+     ===================================================== -->
+
+<section>
+
+  <div class="container">
+
+    <div class="section-title">
+      <h2>Your little garden</h2>
+      <p>
+        A quick look at your plant-care routine.
+      </p>
+    </div>
+
+    <div class="dashboard-grid">
+
+      <div class="stat-card">
+        <div class="stat-icon">🌱</div>
+        <h3 id="plantCount">3</h3>
+        <p>Plants tracked</p>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-icon">💧</div>
+        <h3>2</h3>
+        <p>Need watering soon</p>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-icon">☀️</div>
+        <h3>Good</h3>
+        <p>Average light</p>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-icon">💚</div>
+        <h3>82%</h3>
+        <p>Garden health</p>
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =====================================================
+     AI PLANT DOCTOR
+     ===================================================== -->
+
+<section id="doctor">
+
+  <div class="container">
+
+    <div class="section-title">
+
+      <h2>🩺 AI Plant Doctor</h2>
+
+      <p>
+        Take or upload a photo and get a
+        plant-care health report.
+      </p>
+
+    </div>
+
+
+    <div class="doctor-card">
+
+      <div class="doctor-layout">
+
+        <div class="doctor-copy">
+
+          <h3>
+            Let Flora Pulse look at your plant.
+          </h3>
+
+          <p>
+            Upload a clear photo of the leaves
+            and plant. Flora Pulse can prepare
+            an easy-to-understand care report
+            covering water, light, nutrition,
+            health and possible issues.
+          </p>
+
+          <ul class="feature-list">
+
+            <li>
+              <span>🌱</span>
+              Plant identification
+            </li>
+
+            <li>
+              <span>💧</span>
+              Water assessment
+            </li>
+
+            <li>
+              <span>☀️</span>
+              Light assessment
+            </li>
+
+            <li>
+              <span>🧪</span>
+              Nutrition clues
+            </li>
+
+            <li>
+              <span>⚠️</span>
+              Possible problems
+            </li>
+
+            <li>
+              <span>🌿</span>
+              Personalized care steps
+            </li>
+
+          </ul>
+
+        </div>
+
+
+        <div
+          class="upload-box"
+          id="uploadBox">
+
+          <div id="uploadContent">
+
+            <div class="upload-icon">
+              📸
+            </div>
+
+            <h4>
+              Take or upload a plant photo
+            </h4>
+
+            <p>
+              A clear photo of the leaves
+              gives better visual clues.
+            </p>
+
+            <label
+              for="plantInput"
+              class="primary-btn">
+              📷 Choose Photo
+            </label>
+
+            <input
+              type="file"
+              id="plantInput"
+              accept="image/*"
+              capture="environment">
+
+          </div>
+
+
+          <div
+            class="preview"
+            id="preview">
+
+            <img
+              id="previewImage"
+              alt="Selected plant">
+
+            <br>
+
+            <button
+              class="primary-btn"
+              onclick="analyzePlant()">
+              🩺 Analyze Plant
+            </button>
+
+            <button
+              class="secondary-btn"
+              onclick="resetUpload()">
+              Choose another
+            </button>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- REPORT -->
+
+      <div
+        class="report"
+        id="report">
+
+        <div class="report-header">
+
+          <div>
+            <h3>
+              🌿 Plant Health Report
+            </h3>
+
+            <p
+              style="color:var(--muted); margin-top:5px;">
+              AI-assisted visual care guidance
+            </p>
+          </div>
+
+          <div class="health-score">
+            💚 Health: 82%
+          </div>
+
+        </div>
+
+
+        <div class="report-grid">
+
+          <div class="report-card">
+
+            <h4>
+              🌱 Plant
+            </h4>
+
+            <p>
+              Plant appears to be a healthy
+              leafy indoor plant. Exact species
+              identification should be confirmed
+              with additional visual information.
+            </p>
+
+            <span class="status good">
+              Looks healthy
+            </span>
+
+          </div>
+
+
+          <div class="report-card">
+
+            <h4>
+              💧 Water
+            </h4>
+
+            <p>
+              Leaves do not show strong visual
+              signs of severe dehydration.
+              Check the top layer of soil before
+              watering rather than watering on a
+              fixed schedule.
+            </p>
+
+            <span class="status good">
+              Likely okay
+            </span>
+
+          </div>
+
+
+          <div class="report-card">
+
+            <h4>
+              ☀️ Light
+            </h4>
+
+            <p>
+              The plant may prefer bright,
+              indirect light. Avoid sudden exposure
+              to intense direct sunlight.
+            </p>
+
+            <span class="status good">
+              Suitable
+            </span>
+
+          </div>
+
+
+          <div class="report-card">
+
+            <h4>
+              🧪 Nutrition
+            </h4>
+
+            <p>
+              No definite nutrient deficiency can
+              be confirmed from a photo alone.
+              Watch for persistent yellowing or
+              unusual new growth.
+            </p>
+
+            <span class="status attention">
+              Monitor
+            </span>
+
+          </div>
+
+
+          <div class="report-card">
+
+            <h4>
+              ❤️ Overall health
+            </h4>
+
+            <p>
+              The plant appears generally healthy,
+              but environmental conditions should
+              be monitored regularly.
+            </p>
+
+            <span class="status good">
+              Good
+            </span>
+
+          </div>
+
+
+          <div class="report-card">
+
+            <h4>
+              ⚠️ Possible issue
+            </h4>
+
+            <p>
+              No obvious major issue detected
+              from this sample image. Symptoms
+              can have multiple causes, so monitor
+              changes over time.
+            </p>
+
+            <span class="status good">
+              Low concern
+            </span>
+
+          </div>
+
+        </div>
+
+
+        <div class="care-plan">
+
+          <h4>
+            🌿 What should you do now?
+          </h4>
+
+          <ul>
+
+            <li>
+              Check soil moisture before watering.
+            </li>
+
+            <li>
+              Keep the plant in bright,
+              indirect light if appropriate
+              for its species.
+            </li>
+
+            <li>
+              Remove severely damaged leaves
+              with clean tools if needed.
+            </li>
+
+            <li>
+              Look underneath leaves regularly
+              for signs of pests.
+            </li>
+
+            <li>
+              Take another photo in a few days
+              if symptoms change.
+            </li>
+
+          </ul>
+
+        </div>
+
+
+        <p
+          style="
+          color:var(--muted);
+          font-size:11px;
+          margin-top:15px;">
+          Note: Photo-based observations are
+          suggestions, not a guaranteed diagnosis.
+          Plant species, soil, roots and environment
+          may require additional information.
+        </p>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =====================================================
+     MY PLANTS
+     ===================================================== -->
+
+<section id="plants">
+
+  <div class="container">
+
+    <div class="section-title">
+
+      <h2>🌿 My Plants</h2>
+
+      <p>
+        Keep your little garden organized.
+      </p>
+
+    </div>
+
+
+    <div class="plants-grid">
+
+      <div class="plant-card">
+
+        <div class="plant-image">
+          🌿
+        </div>
+
+        <div class="plant-info">
+
+          <h3>Money Plant</h3>
+
+          <p>
+            Bright indirect light
+          </p>
+
+          <div class="progress">
+            <div
+              class="progress-bar"
+              style="width:86%;">
+            </div>
+          </div>
+
+          <p style="margin-top:8px;">
+            💧 Water check tomorrow
+          </p>
+
+        </div>
+
+      </div>
+
+
+      <div class="plant-card">
+
+        <div class="plant-image">
+          🌵
+        </div>
+
+        <div class="plant-info">
+
+          <h3>Mini Cactus</h3>
+
+          <p>
+            Bright light
+          </p>
+
+          <div class="progress">
+            <div
+              class="progress-bar"
+              style="width:92%;">
+            </div>
+          </div>
+
+          <p style="margin-top:8px;">
+            ☀️ Looking great
+          </p>
+
+        </div>
+
+      </div>
+
+
+      <div class="plant-card">
+
+        <div class="plant-image">
+          🌱
+        </div>
+
+        <div class="plant-info">
+
+          <h3>Peace Lily</h3>
+
+          <p>
+            Medium indirect light
+          </p>
+
+          <div class="progress">
+            <div
+              class="progress-bar"
+              style="width:68%;">
+            </div>
+          </div>
+
+          <p style="margin-top:8px;">
+            💧 Check soil today
+          </p>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =====================================================
+     PLANT DIARY
+     ===================================================== -->
+
+<section id="diary">
+
+  <div class="container">
+
+    <div class="section-title">
+
+      <h2>📖 Plant Diary</h2>
+
+      <p>
+        Record changes and watch your plants grow.
+      </p>
+
+    </div>
+
+
+    <div class="diary">
+
+      <div class="diary-form">
+
+        <h3>
+          Add a note
+        </h3>
+
+        <br>
+
+        <div class="field">
+
+          <label>
+            Plant name
+          </label>
+
+          <input
+            id="diaryPlant"
+            placeholder="e.g. Money Plant">
+
+        </div>
+
+
+        <div class="field">
+
+          <label>
+            Your observation
+          </label>
+
+          <textarea
+            id="diaryText"
+            placeholder="What changed today?">
+          </textarea>
+
+        </div>
+
+
+        <button
+          class="primary-btn"
+          onclick="addDiaryEntry()">
+
+          + Add Diary Entry
+
+        </button>
+
+      </div>
+
+
+      <div class="diary-list">
+
+        <h3>
+          Recent observations
+        </h3>
+
+        <div id="diaryEntries">
+
+          <div class="diary-entry">
+
+            <small>
+              Today · Money Plant
+            </small>
+
+            <p>
+              New leaf is growing nicely.
+              Soil was slightly moist.
+            </p>
+
+          </div>
+
+
+          <div class="diary-entry">
+
+            <small>
+              Yesterday · Peace Lily
+            </small>
+
+            <p>
+              Moved it closer to bright
+              indirect light.
+            </p>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+</main>
+
+
+<!-- =====================================================
+     CHATBOT
+     ===================================================== -->
+
+<button
+  class="chat-button"
+  onclick="toggleChat()"
+  aria-label="Open Flora AI">
+  🌿
+</button>
+
+
+<div
+  class="chat-window"
+  id="chatWindow">
+
+  <div class="chat-header">
+
+    <div class="chat-title">
+
+      <div class="ai-avatar">
+        🤖
+      </div>
+
+      <div>
+
+        <strong>
+          Flora AI
+        </strong>
+
+        <small>
+          Your plant-care helper
+        </small>
+
+      </div>
+
+    </div>
+
+    <button
+      class="close-chat"
+      onclick="toggleChat()">
+      ×
+    </button>
+
+  </div>
+
+
+  <div
+    class="chat-messages"
+    id="chatMessages">
+
+    <div class="message bot">
+
+      Hi! 🌱 I'm Flora AI.
+      Ask me anything about your plant's
+      care, watering, light or common problems.
+
+    </div>
+
+  </div>
+
+
+  <div class="quick-questions">
+
+    <button
+      onclick="quickAsk('Why are my leaves yellow?')">
+      Yellow leaves
+    </button>
+
+    <button
+      onclick="quickAsk('How often should I water my plant?')">
+      Watering
+    </button>
+
+    <button
+      onclick="quickAsk('How much light does my plant need?')">
+      Light
+    </button>
+
+  </div>
+
+
+  <div class="chat-input">
+
+    <input
+      id="chatInput"
+      placeholder="Ask Flora AI..."
+      onkeydown="
+        if(event.key === 'Enter')
+        sendMessage();
+      ">
+
+    <button
+      onclick="sendMessage()">
+      ➤
+    </button>
+
+  </div>
+
+</div>
+
+
+<!-- =====================================================
+     FOOTER
+     ===================================================== -->
+
+<footer>
+
+  <div class="footer-inner">
+
+    <div>
+
+      <div class="footer-brand">
+        🌿 Flora Pulse
+      </div>
+
+      <p style="margin-top:6px;">
+        Grow gently. Grow smarter.
+      </p>
+
+    </div>
+
+    <div>
+      Made with 🌱 for plant lovers
+    </div>
+
+  </div>
+
+</footer>
+
+
+<div
+  class="toast"
+  id="toast">
+  Saved successfully 🌿
+</div>
+
+
+<script>
+
+/* =========================================================
+   FLORA PULSE V2 JAVASCRIPT
+   ========================================================= */
+
+
+/* ---------------- NAVIGATION ---------------- */
+
+function scrollToSection(id) {
+
+  const section =
+    document.getElementById(id);
+
+  if(section) {
+
+    section.scrollIntoView({
+      behavior: "smooth"
+    });
+
+  }
+
+  document
+    .getElementById("navLinks")
+    .classList.remove("open");
+}
+
+
+function toggleMenu() {
+
+  document
+    .getElementById("navLinks")
+    .classList.toggle("open");
+
+}
+
+
+/* ---------------- PHOTO UPLOAD ---------------- */
+
+const plantInput =
+  document.getElementById("plantInput");
+
+const uploadBox =
+  document.getElementById("uploadBox");
+
+const uploadContent =
+  document.getElementById("uploadContent");
+
+const preview =
+  document.getElementById("preview");
+
+const previewImage =
+  document.getElementById("previewImage");
+
+
+plantInput.addEventListener(
+  "change",
+  handlePhoto
+);
+
+
+function handlePhoto(event) {
+
+  const file =
+    event.target.files[0];
+
+  if(!file) return;
+
+  if(!file.type.startsWith("image/")) {
+
+    showToast(
+      "Please choose an image."
+    );
+
+    return;
+  }
+
+  const reader =
+    new FileReader();
+
+  reader.onload = function(e) {
+
+    previewImage.src =
+      e.target.result;
+
+    uploadContent.style.display =
+      "none";
+
+    preview.style.display =
+      "block";
+
+    uploadBox.classList.remove(
+      "dragover"
+    );
+
+  };
+
+  reader.readAsDataURL(file);
+
+}
+
+
+/* ---------------- DRAG & DROP ---------------- */
+
+uploadBox.addEventListener(
+  "dragover",
+  function(e) {
+
+    e.preventDefault();
+
+    uploadBox.classList.add(
+      "dragover"
+    );
+
+  }
+);
+
+
+uploadBox.addEventListener(
+  "dragleave",
+  function() {
+
+    uploadBox.classList.remove(
+      "dragover"
+    );
+
+  }
+);
+
+
+uploadBox.addEventListener(
+  "drop",
+  function(e) {
+
+    e.preventDefault();
+
+    uploadBox.classList.remove(
+      "dragover"
+    );
+
+    const file =
+      e.dataTransfer.files[0];
+
+    if(!file) return;
+
+    if(!file.type.startsWith("image/")) {
+
+      showToast(
+        "Please drop an image."
+      );
+
+      return;
+    }
+
+    const reader =
+      new FileReader();
+
+    reader.onload =
+      function(event) {
+
+        previewImage.src =
+          event.target.result;
+
+        uploadContent.style.display =
+          "none";
+
+        preview.style.display =
+          "block";
+
+      };
+
+    reader.readAsDataURL(file);
+
+  }
+);
+
+
+/* ---------------- RESET PHOTO ---------------- */
+
+function resetUpload() {
+
+  plantInput.value = "";
+
+  previewImage.src = "";
+
+  uploadContent.style.display =
+    "block";
+
+  preview.style.display =
+    "none";
+
+  document
+    .getElementById("report")
+    .classList.remove("show");
+
+}
+
+
+/* ---------------- ANALYZE PLANT ---------------- */
+
+function analyzePlant() {
+
+  const report =
+    document.getElementById("report");
+
+  if(!previewImage.src) {
+
+    showToast(
+      "Please choose a plant photo first."
+    );
+
+    return;
+
+  }
+
+  report.classList.add("show");
+
+  setTimeout(function() {
+
+    report.scrollIntoView({
+      behavior: "smooth",
+      block: "start"
+    });
+
+  }, 200);
+
+  showToast(
+    "Plant report prepared 🌿"
+  );
+
+}
+
+
+/* =========================================================
+   CHATBOT
+   ========================================================= */
+
+function toggleChat() {
+
+  document
+    .getElementById("chatWindow")
+    .classList.toggle("open");
+
+}
+
+
+function addBotMessage(text) {
+
+  const messages =
+    document.getElementById(
+      "chatMessages"
+    );
+
+  const message =
+    document.createElement("div");
+
+  message.className =
+    "message bot";
+
+  message.textContent =
+    text;
+
+  messages.appendChild(message);
+
+  messages.scrollTop =
+    messages.scrollHeight;
+
+}
+
+
+function addUserMessage(text) {
+
+  const messages =
+    document.getElementById(
+      "chatMessages"
+    );
+
+  const message =
+    document.createElement("div");
+
+  message.className =
+    "message user";
+
+  message.textContent =
+    text;
+
+  messages.appendChild(message);
+
+  messages.scrollTop =
+    messages.scrollHeight;
+
+}
+
+
+function sendMessage() {
+
+  const input =
+    document.getElementById(
+      "chatInput"
+    );
+
+  const text =
+    input.value.trim();
+
+  if(!text) return;
+
+  addUserMessage(text);
+
+  input.value = "";
+
+  setTimeout(function() {
+
+    addBotMessage(
+      getPlantResponse(text)
+    );
+
+  }, 500);
+
+}
+
+
+function quickAsk(question) {
+
+  document
+    .getElementById("chatInput")
+    .value = question;
+
+  sendMessage();
+
+}
+
+
+/*
+  Demo chatbot responses.
+
+  A real AI chatbot can be connected later
+  using an appropriate backend/API.
+*/
+
+function getPlantResponse(question) {
+
+  const q =
+    question.toLowerCase();
+
+  if(
+    q.includes("yellow") ||
+    q.includes("yellowing")
+  ) {
+
+    return (
+      "Yellow leaves can have several causes 🌿 " +
+      "including overwatering, underwatering, " +
+      "light stress or natural aging. " +
+      "Check the soil moisture and look at " +
+      "whether newer or older leaves are affected."
+    );
+
+  }
+
+
+  if(
+    q.includes("water") ||
+    q.includes("watering")
+  ) {
+
+    return (
+      "Avoid watering only by the calendar 💧. " +
+      "Check the soil moisture first. " +
+      "Different plants have very different " +
+      "watering needs."
+    );
+
+  }
+
+
+  if(
+    q.includes("light") ||
+    q.includes("sun")
+  ) {
+
+    return (
+      "Most indoor plants prefer bright, " +
+      "indirect light ☀️, but the ideal amount " +
+      "depends on the species. Sudden strong " +
+      "sun can stress some plants."
+    );
+
+  }
+
+
+  if(
+    q.includes("fertilizer") ||
+    q.includes("nutrition") ||
+    q.includes("nutrient")
+  ) {
+
+    return (
+      "Nutrition problems can look similar to " +
+      "other plant stresses 🧪. Before adding " +
+      "fertilizer, check watering, light and " +
+      "soil conditions. Too much fertilizer " +
+      "can also harm plants."
+    );
+
+  }
+
+
+  if(
+    q.includes("brown") ||
+    q.includes("dry")
+  ) {
+
+    return (
+      "Brown or dry leaf edges may be related " +
+      "to inconsistent watering, dry air, " +
+      "salt buildup or light stress 🌿. " +
+      "Check the growing conditions before " +
+      "changing several things at once."
+    );
+
+  }
+
+
+  return (
+    "I'd start by checking three things 🌱: " +
+    "soil moisture, light exposure and recent " +
+    "changes in the plant's environment. " +
+    "You can also upload a photo to create a " +
+    "Plant Health Report."
+  );
+
+}
+
+
+/* =========================================================
+   PLANT DIARY
+   ========================================================= */
+
+function addDiaryEntry() {
+
+  const plant =
+    document
+      .getElementById("diaryPlant")
+      .value
+      .trim();
+
+  const text =
+    document
+      .getElementById("diaryText")
+      .value
+      .trim();
+
+  if(!plant || !text) {
+
+    showToast(
+      "Please fill both fields."
+    );
+
+    return;
+
+  }
+
+  const entries =
+    document.getElementById(
+      "diaryEntries"
+    );
+
+  const entry =
+    document.createElement("div");
+
+  entry.className =
+    "diary-entry";
+
+  entry.innerHTML = `
+    <small>
+      Today · ${escapeHtml(plant)}
+    </small>
+
+    <p>
+      ${escapeHtml(text)}
+    </p>
+  `;
+
+  entries.prepend(entry);
+
+  document
+    .getElementById("diaryPlant")
+    .value = "";
+
+  document
+    .getElementById("diaryText")
+    .value = "";
+
+  saveDiary();
+
+  showToast(
+    "Diary entry added 🌱"
+  );
+
+}
+
+
+/* ---------------- LOCAL STORAGE ---------------- */
+
+function saveDiary() {
+
+  const entries =
+    document
+      .getElementById("diaryEntries")
+      .innerHTML;
+
+  localStorage.setItem(
+    "floraPulseDiary",
+    entries
+  );
+
+}
+
+
+function loadDiary() {
+
+  const saved =
+    localStorage.getItem(
+      "floraPulseDiary"
+    );
+
+  if(saved) {
+
+    document
+      .getElementById("diaryEntries")
+      .innerHTML = saved;
+
+  }
+
+}
+
+
+/* ---------------- HTML SAFETY ---------------- */
+
+function escapeHtml(value) {
+
+  return value
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+
+}
+
+
+/* ---------------- TOAST ---------------- */
+
+let toastTimer;
+
+function showToast(message) {
+
+  const toast =
+    document.getElementById("toast");
+
+  toast.textContent =
+    message;
+
+  toast.classList.add("show");
+
+  clearTimeout(toastTimer);
+
+  toastTimer =
+    setTimeout(function() {
+
+      toast.classList.remove(
+        "show"
+      );
+
+    }, 2600);
+
+}
+
+
+/* ---------------- LOAD SAVED DATA ---------------- */
+
+loadDiary();
+
+
+/* ---------------- CLOSE CHAT ON ESC ---------------- */
+
+document.addEventListener(
+  "keydown",
+  function(event) {
+
+    if(event.key === "Escape") {
+
+      document
+        .getElementById("chatWindow")
+        .classList.remove("open");
+
+    }
+
+  }
+);
+
+</script>
+
+</body>
+</html>
